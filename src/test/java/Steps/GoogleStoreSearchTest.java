@@ -27,7 +27,7 @@ public class GoogleStoreSearchTest {
     private AndroidDriver<AndroidElement> driver;
     private FluentWait<WebDriver> wait;
 
-    @BeforeMethod
+    @BeforeMethod(groups = {"regression"})
     public void SetUp(ITestContext context) throws MalformedURLException {
         driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4729/wd/hub"), getCapabilities());
         wait = new WebDriverWait(driver, 30)
@@ -50,7 +50,6 @@ public class GoogleStoreSearchTest {
         };
     }
 
-
     @Test(groups = {"regression"}, dataProvider = "appName")
     @Story("Search application in the store")
     public void SearchAppInStore(String appName) {
@@ -60,7 +59,7 @@ public class GoogleStoreSearchTest {
 
     }
 
-    @AfterMethod
+    @AfterMethod(groups = {"regression"})
     public void tearDown() {
         driver.quit();
     }
