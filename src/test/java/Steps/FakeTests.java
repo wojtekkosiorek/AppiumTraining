@@ -1,5 +1,6 @@
 package Steps;
 
+import Framework.TestHooks;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -8,7 +9,7 @@ import org.testng.annotations.Test;
 
 @Epic("All epic test")
 @Feature("Feature")
-public class FakeTests {
+public class FakeTests extends TestHooks {
 
     @Test (groups = {"smoke","regression"})
     @Story("Fake smoke test")

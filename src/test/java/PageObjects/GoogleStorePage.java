@@ -39,6 +39,7 @@ public class GoogleStorePage {
     public void backToPreviousView() {
         ((AndroidDriver) driver).pressKey(new KeyEvent(AndroidKey.BACK));
         wait.until(ExpectedConditions.visibilityOfElementLocated(idleSearchFieldLocatorId));
+
     }
 
 
