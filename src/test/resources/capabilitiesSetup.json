@@ -1,0 +1,10 @@
+{
+  "version": "8.0.0",
+  "deviceName": "Moto g6 play",
+  "udid": "ZL42244F88",
+  "platformName": "Android",
+  "appPackage": "com.android.vending",
+  "appActivity": "com.android.vending.AssetBrowserActivity",
+  "autoGrantPermissions": "true",
+  "automationName": "UiAutomator2"
+}

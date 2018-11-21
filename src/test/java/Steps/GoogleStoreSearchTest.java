@@ -1,6 +1,8 @@
 package Steps;
 
+import Framework.CapabilitiesSetup;
 import PageObjects.GoogleStorePage;
+import com.google.gson.Gson;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -18,6 +20,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -28,7 +33,7 @@ public class GoogleStoreSearchTest {
     private FluentWait<WebDriver> wait;
 
     @BeforeMethod(groups = {"regression"})
-    public void SetUp(ITestContext context) throws MalformedURLException {
+    public void SetUp(ITestContext context) throws MalformedURLException, FileNotFoundException {
         driver = new AndroidDriver<AndroidElement>(new URL("http://127.0.0.1:4729/wd/hub"), getCapabilities());
         wait = new WebDriverWait(driver, 30)
                 .ignoring(StaleElementReferenceException.class)
@@ -64,19 +69,19 @@ public class GoogleStoreSearchTest {
         driver.quit();
     }
 
-
-    private DesiredCapabilities getCapabilities() {
-        DesiredCapabilities capabilities;
-        capabilities = new DesiredCapabilities();
-        capabilities.setCapability(MobileCapabilityType.VERSION, "8.0.0");
-        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "Moto g6 play");
-        capabilities.setCapability(MobileCapabilityType.UDID, "ZL42244F88");
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-        capabilities.setCapability("appPackage", "com.android.vending");
-        capabilities.setCapability("appActivity", "com.android.vending.AssetBrowserActivity");
-        capabilities.setCapability("autoGrantPermissions", true);
-        capabilities.setCapability("automationName", "UiAutomator2");
-
+    private DesiredCapabilities getCapabilities() throws FileNotFoundException {
+        BufferedReader br = new BufferedReader(new FileReader("./src/test/resources/capabilitiesSetup.json"));
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        Gson g = new Gson();
+        CapabilitiesSetup capabilitiesSetup = g.fromJson(br, CapabilitiesSetup.class);
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, capabilitiesSetup.getPlatformName());
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, capabilitiesSetup.getDeviceName());
+        capabilities.setCapability(MobileCapabilityType.UDID, capabilitiesSetup.getUdid());
+        capabilities.setCapability(MobileCapabilityType.VERSION, capabilitiesSetup.getVersion());
+        capabilities.setCapability("appPackage", capabilitiesSetup.getAppPackage());
+        capabilities.setCapability("appActivity", capabilitiesSetup.getAppActivity());
+        capabilities.setCapability("autoGrantPermissions", capabilitiesSetup.getAutoGrantPermissions());
+        capabilities.setCapability("automationName", capabilitiesSetup.getAutomationName());
         return capabilities;
     }
 }
