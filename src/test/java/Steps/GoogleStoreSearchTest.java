@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class GoogleStoreSearch {
+public class GoogleStoreSearchTest {
     private GoogleStorePage googleStorePage;
     private AndroidDriver<AndroidElement> driver;
     private FluentWait<WebDriver> wait;
@@ -43,13 +43,13 @@ public class GoogleStoreSearch {
     public Object[][] createAppNameData() {
         return new Object[][]{
                 {"Messenger"},
-                {"Linkdin"},
+                {"Linkedin"},
         };
     }
 
 
-    @Test(dataProvider = "appName", groups = {"regression"})
-    public void testName(String appName) {
+    @Test(groups = {"regression"}, dataProvider = "appName")
+    public void SearchAppInStore(String appName) {
         googleStorePage.googleStoreIsOpen();
         googleStorePage.searchApplication(appName);
         googleStorePage.backToPreviousView();
