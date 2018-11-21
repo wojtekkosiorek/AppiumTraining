@@ -4,6 +4,8 @@ import PageObjects.GoogleStorePage;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Story;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +21,7 @@ import org.testng.annotations.Test;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+@Epic("Basic google store test")
 public class GoogleStoreSearchTest {
     private GoogleStorePage googleStorePage;
     private AndroidDriver<AndroidElement> driver;
@@ -49,6 +52,7 @@ public class GoogleStoreSearchTest {
 
 
     @Test(groups = {"regression"}, dataProvider = "appName")
+    @Story("Search application in the store")
     public void SearchAppInStore(String appName) {
         googleStorePage.googleStoreIsOpen();
         googleStorePage.searchApplication(appName);
