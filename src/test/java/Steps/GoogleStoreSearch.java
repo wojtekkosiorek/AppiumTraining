@@ -48,7 +48,7 @@ public class GoogleStoreSearch {
     }
 
 
-    @Test(dataProvider = "appName")
+    @Test(dataProvider = "appName", groups = {"regression"})
     public void testName(String appName) {
         googleStorePage.googleStoreIsOpen();
         googleStorePage.searchApplication(appName);
